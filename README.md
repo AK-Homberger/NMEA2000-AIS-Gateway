@@ -17,6 +17,8 @@ To does:
 - Message type 14 for AIS safety related brodcast messages (to support AIS MOB devices)
 - ETA calculation for message 5 translation
 
-To use the gateway the following librariis have to be installed:
-
+To use the gateway the following librariis have to be installed (as ZIP file):
+- [NMEA2000](https://github.com/ttlappalainen/NMEA2000)
+- [NMEA2000_esp32](https://github.com/ttlappalainen/NMEA2000_esp32)
+- [NMEA0183](https://github.com/ttlappalainen/NMEA0183)
 
