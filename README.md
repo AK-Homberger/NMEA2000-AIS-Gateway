@@ -43,5 +43,5 @@ You only neeed these parts for the gateway:
 - J1, J3 Connector 2-pin [Link](https://www.reichelt.de/de/en/2-pin-terminal-strip-spacing-5-08-akl-101-02-p36605.html?&nbc=1)
 
 
-# Updates:
+## Updates:
 - 18.02.21: Version 0.1 - Initial version.
