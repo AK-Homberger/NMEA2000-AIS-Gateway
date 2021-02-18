@@ -9,7 +9,7 @@ The used ESP32 reads AIVDM messages from UART2 (connected to GPIO 16). Forwardin
 
 The solution is re-using the code from [this](https://github.com/aduvenhage/ais-decoder) GitHub repository. It is published under [MIT-License](https://github.com/aduvenhage/ais-decoder/blob/master/LICENSE).
 
-It was necessary to change the code to make it usable with the Arduino IDE and the ESP32. The reason for the changes was the different C-Compiler versions (clang#14 to clang#11). It was quite an effort to do the backport to Arduino clang#11 version, because of missing functions.
+It was necessary to change the code to make it usable with the Arduino IDE and the ESP32. The reason for the changes was the different C compiler versions (clang#14 to clang#11). It was quite an effort to do the backport to Arduino clang#11 version, because of missing functions.
 
 Currently following AIS message types are supported: 1-3, 5, 18, 24A, 24B
 
