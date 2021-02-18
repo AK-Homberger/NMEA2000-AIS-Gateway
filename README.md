@@ -14,15 +14,15 @@ It was necessary to change the code to make it usable with the Arduino IDE and t
 Currently following AIS message types are supported: 1-3, 5, 18, 24A, 24B
 
 To does:
-- Message type 14 for AIS safety related brodcast messages (to support AIS MOB devices)
-- ETA calculation for message 5 translation
+- Message type 14 for AIS safety related brodcast messages (to support AIS MOB devices).
+- ETA calculation for message 5 translation.
 
 To use the gateway the following libraries have to be installed (as ZIP file):
 - [NMEA2000](https://github.com/ttlappalainen/NMEA2000)
 - [NMEA2000_esp32](https://github.com/ttlappalainen/NMEA2000_esp32)
 - [NMEA0183](https://github.com/ttlappalainen/NMEA0183)
 
-The schematics and the PCB from the [WLAN gateway](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32) can be used for the gateway.
+The schematics and the PCB from the [WLAN gateway](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32) can be used for the gateway. Just ignore the not needed parts.
 
 ![schematics](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/KiCAD/ESP32WifiAisTempVolt2/ESP32WifiAisTempVolt2.png)
 
