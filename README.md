@@ -22,3 +22,5 @@ To use the gateway the following librariis have to be installed (as ZIP file):
 - [NMEA2000_esp32](https://github.com/ttlappalainen/NMEA2000_esp32)
 - [NMEA0183](https://github.com/ttlappalainen/NMEA0183)
 
+The PCB from the [WLAN gateway](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32) can be used for the gateway.
+
