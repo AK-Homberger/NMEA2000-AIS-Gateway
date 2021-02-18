@@ -42,4 +42,4 @@ You need only these parts for the gateway:
 
 
 # Updates:
-- 18.02.21: Version 0.1: Initial version.
+- 18.02.21: Version 0.1 - Initial version.
