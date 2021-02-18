@@ -103,10 +103,10 @@ void CheckSourceAddressChange() {
 
 
 //*****************************************************************************
-void ParseAVDM_Message() {
+void ParseAIVDM_Message() {
   int i = 0;
 
-  if (!NMEA0183.GetMessage(NMEA0183Msg)) return;  // Ne new message
+  if (!NMEA0183.GetMessage(NMEA0183Msg)) return;  // New message
 
   char buf[MAX_NMEA0183_MESSAGE_SIZE];
 
@@ -123,6 +123,6 @@ void ParseAVDM_Message() {
 //*****************************************************************************
 void loop() {
   NMEA2000.ParseMessages();
-  ParseAVDM_Message();      // Parse AIS
+  ParseAIVDM_Message();      // Parse AIS
   CheckSourceAddressChange();
 }
