@@ -3,7 +3,7 @@
 This repository shows how to build a gateway to read NMEA0183 AIS messages and transform them to NMEA2000 PGNs.
 
 The purpose is to use an existing RS232 AIS receiver together with devices (e.g. MFD) that support only NMEA2000.
-Many small chart plotters only support NMEA2000 an do not have an additional RS232 or RS422 input.
+Many small chart plotters only support NMEA2000 and do not have an additional RS232 or RS422 input.
 
 The used ESP32 reads AIVDM messages from UART2 (connected to GPIO 16). Forwarding to NMEA2000 is done via a CAN bus transceiver.
 
