@@ -28,6 +28,8 @@ The schematics and the PCB from the [WLAN gateway](https://github.com/AK-Homberg
 
 ![PCB](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/KiCAD/ESP32WifiAisTempVolt2/ESP32WifiAisTempVolt2-PCB.png)
 
+The board can be ordered at Aisler.net: https://aisler.net/p/DNXXRLFU
+
 You only neeed these parts for the gateway:
 
 - U1 ESP32 [Link](https://www.amazon.de/AZDelivery-NodeMCU-Development-Nachfolgermodell-ESP8266/dp/B071P98VTG/ref=sxts_sxwds-bia-wc-drs3_0?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&cv_ct_cx=ESP32&dchild=1&keywords=ESP32) 
