@@ -7,8 +7,9 @@ Many small Chart Plotters only support NMEA2000 an do not have an additional RS2
 
 The used ESP32 reads AIVDM messages from UART2 (connected to GPIO 16).
 
-The solution is re-using the code from [this](https://github.com/aduvenhage/ais-decoder) GitHub repository.
-It was necessary to change the code to make it usable with Arduino IDE and the ESP32. Ther erason for the changes was the diferent versions of C-Compiler versions (clang#14 to clang#11). It was quite an effort to do the backport to Arduino #11 version becaues of missing functions.
+The solution is re-using the code from [this](https://github.com/aduvenhage/ais-decoder) GitHub repository. Its under [MIT-License](AIS decoder is under MIT license: https://github.com/aduvenhage/ais-decoder/blob/master/LICENSE).
+
+It was necessary to change the code to make it usable with Arduino IDE and the ESP32. Ther reason for the changes was the diferent versions of C-Compiler versions (clang#14 to clang#11). It was quite an effort to do the backport to Arduino clang#11 version, because of missing functions.
 
 Currently following AIS message types are supported: 1-3, 5, 18, 24A, 24B
 
