@@ -2,7 +2,7 @@
 
 This repository shows how to build a gateway to read NMEA0183 AIS messages and transform them to NMEA2000.
 
-The purpose is to use an existing cheap RS232 AIS receiver together with devices (e.g. MFD) that support only NMEA2000.
+The purpose is to use an existing RS232 AIS receiver together with devices (e.g. MFD) that support only NMEA2000.
 Many small chart plotters only support NMEA2000 an do not have an additional RS232 or RS422 input.
 
 The used ESP32 reads AIVDM messages from UART2 (connected to GPIO 16). Forwarding to NMEA2000 is done via a CAN bus transceiver.
@@ -28,7 +28,7 @@ The schematics and the PCB from the [WLAN gateway](https://github.com/AK-Homberg
 
 ![PCB](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/KiCAD/ESP32WifiAisTempVolt2/ESP32WifiAisTempVolt2-PCB.png)
 
-You need only these parts for the gateway:
+You only neeed these parts for the gateway:
 
 - U1 ESP32 [Link](https://www.amazon.de/AZDelivery-NodeMCU-Development-Nachfolgermodell-ESP8266/dp/B071P98VTG/ref=sxts_sxwds-bia-wc-drs3_0?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&cv_ct_cx=ESP32&dchild=1&keywords=ESP32) 
 - J5 SN65HVD230 [Link](https://eckstein-shop.de/Waveshare-SN65HVD230-CAN-Board-33V-ESD-protection)
