@@ -1,4 +1,4 @@
-# NMEA2000 AIS Gateway
+# NMEA0183 to NMEA2000 AIS Gateway
 
 This repository shows how to build a gateway to read NMEA0183 AIS messages and transform them to NMEA2000.
 
