@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // Reads AIVDM messages from NMEA0183 (ESP32 UART 2 on GPIO 16) and forwards them to the N2k bus
-// Version 0.1, 18.02.2021, AK-Homberger
+// Version 0.2, 19.02.2021, AK-Homberger
 
 // Is using modified (clang#14 to clang#11) version of this AIS decoder: https://github.com/aduvenhage/ais-decoder
 // AIS decoder is under MIT license: https://github.com/aduvenhage/ais-decoder/blob/master/LICENSE
@@ -20,7 +20,6 @@
 // Currently following AIS message types are supported: 1-3, 5, 18, 24A, 24B
 
 // TBD1: Message type 14 for AIS safety related brodcast messages (to support AIS MOB devices)
-// TBD2: ETA calculation for message 5 translation
 
 #define ESP32_CAN_TX_PIN GPIO_NUM_5  // Set CAN TX port to 5 
 #define ESP32_CAN_RX_PIN GPIO_NUM_4  // Set CAN RX port to 4
@@ -32,9 +31,7 @@
 #include <NMEA0183.h>
 #include <Preferences.h>
 
-#include "ais_decoder.h"
-#include "default_sentence_parser.h"
-#include "NMEA0183AIStoNMEA2000.h"
+#include "NMEA0183AIStoNMEA2000.h"  // Contains class, global variables and code !!!
 
 #define MAX_NMEA0183_MESSAGE_SIZE 150
 
@@ -85,8 +82,52 @@ void setup() {
 
   NMEA2000.SetMode(tNMEA2000::N2km_ListenAndNode, NodeAddress);
   NMEA2000.EnableForward(false);
+  NMEA2000.SetMsgHandler(MyHandleNMEA2000Msg);
 
   NMEA2000.Open();
+}
+
+
+//*****************************************************************************
+void HandleSytemTime(const tN2kMsg & N2kMsg) {
+  unsigned char SID;
+  tN2kTimeSource TimeSource;
+  double SecondsSinceMidnight = 0;
+
+  ParseN2kSystemTime(N2kMsg, SID, DaysSince1970, SecondsSinceMidnight, TimeSource);
+}
+
+
+//*****************************************************************************
+void HandleGNSS(const tN2kMsg & N2kMsg) {
+
+  unsigned char SID;
+  double Latitude;
+  double Longitude;
+  double Altitude;
+  tN2kGNSStype GNSStype;
+  tN2kGNSSmethod GNSSmethod;
+  unsigned char nSatellites;
+  double HDOP;
+  double PDOP;
+  double GeoidalSeparation;
+  unsigned char nReferenceStations;
+  tN2kGNSStype ReferenceStationType;
+  uint16_t ReferenceSationID;
+  double AgeOfCorrection;
+  double SecondsSinceMidnight = 0;
+
+  ParseN2kGNSS(N2kMsg, SID, DaysSince1970, SecondsSinceMidnight, Latitude, Longitude, Altitude,
+                    GNSStype, GNSSmethod, nSatellites, HDOP, PDOP, GeoidalSeparation,
+                    nReferenceStations, ReferenceStationType, ReferenceSationID, AgeOfCorrection);
+}
+
+
+//*****************************************************************************
+void MyHandleNMEA2000Msg(const tN2kMsg &N2kMsg) {
+
+  if (N2kMsg.PGN == 126992L) HandleGNSS(N2kMsg);      // Just to get time from GNSS
+  if (N2kMsg.PGN == 129029L) HandleSytemTime(N2kMsg); // or this way
 }
 
 
@@ -106,7 +147,7 @@ void CheckSourceAddressChange() {
 void ParseAIVDM_Message() {
   int i = 0;
 
-  if (!NMEA0183.GetMessage(NMEA0183Msg)) return;  // New message
+  if (!NMEA0183.GetMessage(NMEA0183Msg)) return;  // New message ?
 
   char buf[MAX_NMEA0183_MESSAGE_SIZE];
 

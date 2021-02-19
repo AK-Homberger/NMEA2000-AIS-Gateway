@@ -20,6 +20,8 @@ const double knToms = 1852.0 / 3600.0;
 const double degToRad = pi / 180.0;
 const double nmTom = 1.852 * 1000;
 
+uint16_t DaysSince1970 = 0;
+
 class MyAisDecoder : public AIS::AisDecoder
 {
   public:
@@ -61,6 +63,22 @@ class MyAisDecoder : public AIS::AisDecoder
 
       // Serial.println("5");
 
+      // Necessary due to conflict with TimeLib.h (redefinition of tmElements_t)
+      
+      time_t t = DaysSince1970 * (24UL * 3600UL);
+      tmElements_t tm;
+      
+      tNMEA0183Msg::breakTime(t, tm);
+
+      //tNMEA0183Msg::SetYear(tm, 2020);
+      tNMEA0183Msg::SetMonth(tm, _uEtaMonth);
+      tNMEA0183Msg::SetDay(tm, _uEtaDay);
+      tNMEA0183Msg::SetHour(tm, 0);
+      tNMEA0183Msg::SetMin(tm, 0);
+      tNMEA0183Msg::SetSec(tm, 0);
+      
+      uint16_t eta_days = tNMEA0183Msg::makeTime(tm) / (24UL * 3600UL);
+      
       tN2kMsg N2kMsg;
       char CS[30];
       char Name[30];
@@ -70,23 +88,10 @@ class MyAisDecoder : public AIS::AisDecoder
       strcpy(Name, _strName.c_str());
       strcpy(Dest, _strDestination.c_str());
 
-      /*
-        unsigned long tNMEA0183Msg::DaysToNMEA0183Date(unsigned long val) {
-        if ( val!=NMEA0183UInt32NA  ) {
-        tmElements_t tm;
-        time_t t=val*SECS_PER_DAY; //daysToTime_t((val));
-        breakTime(t, tm);
-        val=tm.Day*10000+(tm.Month)*100+(tm.Year+1970-2000);
-        }
-
-        return val;
-        }
-      */
-
       // PGN129794
       SetN2kAISClassAStatic(N2kMsg, _uMsgType, (tN2kAISRepeat) _repeat, _uMmsi,
                             _uImo, CS, Name, _uType, _uToBow + _uToStern,
-                            _uToPort + _uToStarboard, _uToStarboard, _uToBow, (_uEtaMonth * 30) + _uEtaDay,
+                            _uToPort + _uToStarboard, _uToStarboard, _uToBow, eta_days,
                             (_uEtaHour * 3600) + (_uEtaMinute * 60), _uDraught / 10.0, Dest,
                             (tN2kAISVersion) _ais_version, (tN2kGNSStype) _uFixType,
                             (tN2kAISDTE) _dte, (tN2kAISTranceiverInfo) _ais_version);
