@@ -44,4 +44,5 @@ You only need these parts for the gateway:
 
 
 ## Updates:
-- 18.02.21: Version 0.1 - Initial version.
+- 19.02.21 Version 0.2: Added ETA calculation for message 5.
+- 18.02.21 Version 0.1: Initial version.
