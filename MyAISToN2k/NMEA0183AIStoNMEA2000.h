@@ -64,10 +64,10 @@ class MyAisDecoder : public AIS::AisDecoder
       // Serial.println("5");
 
       // Necessary due to conflict with TimeLib.h (redefinition of tmElements_t)
-      
+
       time_t t = DaysSince1970 * (24UL * 3600UL);
       tmElements_t tm;
-      
+
       tNMEA0183Msg::breakTime(t, tm);
 
       //tNMEA0183Msg::SetYear(tm, 2020);
@@ -76,17 +76,17 @@ class MyAisDecoder : public AIS::AisDecoder
       tNMEA0183Msg::SetHour(tm, 0);
       tNMEA0183Msg::SetMin(tm, 0);
       tNMEA0183Msg::SetSec(tm, 0);
-      
+
       uint16_t eta_days = tNMEA0183Msg::makeTime(tm) / (24UL * 3600UL);
-      
+
       tN2kMsg N2kMsg;
       char CS[30];
       char Name[30];
       char Dest[30];
 
-      strcpy(CS, _strCallsign.c_str());
-      strcpy(Name, _strName.c_str());
-      strcpy(Dest, _strDestination.c_str());
+      strncpy(CS, _strCallsign.c_str(), sizeof(CS));
+      strncpy(Name, _strName.c_str(), sizeof(Name));
+      strncpy(Dest, _strDestination.c_str(), sizeof(Dest));
 
       // PGN129794
       SetN2kAISClassAStatic(N2kMsg, _uMsgType, (tN2kAISRepeat) _repeat, _uMmsi,
@@ -121,8 +121,39 @@ class MyAisDecoder : public AIS::AisDecoder
       NMEA2000.SendMsg(N2kMsg);
     }
 
-    virtual void onType19(unsigned int , unsigned int , bool , int , int , int , int , const std::string &, unsigned int , unsigned int , unsigned int , unsigned int , unsigned int ) override {
+    virtual void onType19(unsigned int _uMmsi, unsigned int _uSog, bool _bPosAccuracy, int _iPosLon, int _iPosLat,
+                          int _iCog, int _iHeading, const std::string &_strName, unsigned int _uType,
+                          unsigned int _uToBow, unsigned int _uToStern, unsigned int _uToPort,
+                          unsigned int _uToStarboard, unsigned int _timestamp, unsigned int _fixtype,
+                          bool _dte, bool _assigned, unsigned int _repeat, bool _raim) override {
+
       //Serial.println("19");
+      tN2kMsg N2kMsg;
+
+      // PGN129039
+      SetN2kAISClassBPosition(N2kMsg, 19, (tN2kAISRepeat) _repeat, _uMmsi,
+                              _iPosLat / 600000.0, _iPosLon / 600000.0, _bPosAccuracy, _raim,
+                              _timestamp, _iCog * degToRad, _uSog * knToms / 10.0,
+                              _iHeading * degToRad, (tN2kAISUnit) 0,
+                              0, 0, 0, 0, (tN2kAISMode) _assigned, 0);
+
+      NMEA2000.SendMsg(N2kMsg);
+
+      char Name[30];
+      strncpy(Name, _strName.c_str(), sizeof(Name));
+
+      // PGN129809
+      SetN2kAISClassBStaticPartA(N2kMsg, 19, (tN2kAISRepeat) _repeat, _uMmsi, Name);
+
+      NMEA2000.SendMsg(N2kMsg);
+
+      // PGN129810
+      SetN2kAISClassBStaticPartB(N2kMsg, 19, (tN2kAISRepeat)_repeat, _uMmsi,
+                                 _uType, "", "", _uToBow + _uToStern, _uToPort + _uToStarboard,
+                                 _uToStarboard, _uToBow, 0);
+
+      NMEA2000.SendMsg(N2kMsg);
+      
     }
 
     virtual void onType21(unsigned int , unsigned int , const std::string &, bool , int , int , unsigned int , unsigned int , unsigned int , unsigned int ) override {
@@ -135,7 +166,7 @@ class MyAisDecoder : public AIS::AisDecoder
 
       tN2kMsg N2kMsg;
       char Name[30];
-      strcpy(Name, _strName.c_str());
+      strncpy(Name, _strName.c_str(), sizeof(Name));
 
       // PGN129809
       SetN2kAISClassBStaticPartA(N2kMsg, _uMsgType, (tN2kAISRepeat) _repeat, _uMmsi, Name);
@@ -155,8 +186,8 @@ class MyAisDecoder : public AIS::AisDecoder
       char CS[30];
       char Vendor[30];
 
-      strcpy(CS, _strCallsign.c_str());
-      strcpy(Vendor, _strVendor.c_str());
+      strncpy(CS, _strCallsign.c_str(), sizeof(CS));
+      strncpy(Vendor, _strVendor.c_str(), sizeof(Vendor));
 
       // PGN129810
       SetN2kAISClassBStaticPartB(N2kMsg, _uMsgType, (tN2kAISRepeat)_repeat, _uMmsi,

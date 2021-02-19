@@ -566,7 +566,7 @@ void AisDecoder::decodeType19(PayloadBuffer &_buffer, unsigned int _uMsgType, in
   }
 
   // decode message fields (binary buffer has to go through all fields, but some fields are not used)
-  _buffer.getUnsignedValue(2);                 // repeatIndicator
+  auto repeat = _buffer.getUnsignedValue(2);                 // repeatIndicator
   auto mmsi = _buffer.getUnsignedValue(30);
   _buffer.getUnsignedValue(8);                 // reserved
   auto sog = _buffer.getUnsignedValue(10);
@@ -575,7 +575,7 @@ void AisDecoder::decodeType19(PayloadBuffer &_buffer, unsigned int _uMsgType, in
   auto posLat = _buffer.getSignedValue(27);
   auto cog = (int)_buffer.getUnsignedValue(12);
   auto heading = (int)_buffer.getUnsignedValue(9);
-  _buffer.getUnsignedValue(6);                 // timestamp
+  auto timestamp = _buffer.getUnsignedValue(6);                 // timestamp
   _buffer.getUnsignedValue(4);                 // reserved
   auto name = _buffer.getString(120);
   auto type = _buffer.getUnsignedValue(8);
@@ -588,13 +588,15 @@ void AisDecoder::decodeType19(PayloadBuffer &_buffer, unsigned int _uMsgType, in
   auto toPort = _buffer.getUnsignedValue(6);
   auto toStarboard = _buffer.getUnsignedValue(6);
 
-  _buffer.getUnsignedValue(4);     // fix type
-  _buffer.getBoolValue();          // RAIM
-  _buffer.getBoolValue();          // dte
-  _buffer.getBoolValue();          // assigned
+  auto fixtype = _buffer.getUnsignedValue(4);     // fix type
+  auto raim = _buffer.getBoolValue();          // RAIM
+  auto dte = _buffer.getBoolValue();          // dte
+  auto assigned = _buffer.getBoolValue();          // assigned
   _buffer.getUnsignedValue(4);     // spare
 
-  onType19(mmsi, sog, posAccuracy, posLon, posLat, cog, heading, name, type, toBow, toStern, toPort, toStarboard);
+  onType19(mmsi, sog, posAccuracy, posLon, posLat, cog, 
+  heading, name, type, toBow, toStern, toPort, toStarboard,
+  timestamp, fixtype, dte, assigned, repeat, raim);
 }
 
 /* decode Aid-to-Navigation Report */

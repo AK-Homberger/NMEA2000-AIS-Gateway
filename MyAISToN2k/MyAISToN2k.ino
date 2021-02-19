@@ -12,12 +12,12 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // Reads AIVDM messages from NMEA0183 (ESP32 UART 2 on GPIO 16) and forwards them to the N2k bus
-// Version 0.2, 19.02.2021, AK-Homberger
+// Version 0.3, 19.02.2021, AK-Homberger
 
 // Is using modified (clang#14 to clang#11) version of this AIS decoder: https://github.com/aduvenhage/ais-decoder
 // AIS decoder is under MIT license: https://github.com/aduvenhage/ais-decoder/blob/master/LICENSE
 
-// Currently following AIS message types are supported: 1-3, 5, 18, 24A, 24B
+// Currently following AIS message types are supported: 1-3, 5, 18, 19, 24A, 24B
 
 // TBD1: Message type 14 for AIS safety related brodcast messages (to support AIS MOB devices)
 

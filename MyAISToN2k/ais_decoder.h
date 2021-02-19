@@ -289,7 +289,9 @@ namespace AIS
         
         virtual void onType19(unsigned int _uMmsi, unsigned int _uSog, bool _bPosAccuracy, int _iPosLon, int _iPosLat, int _iCog, int _iHeading,
                               const std::string &_strName, unsigned int _uType,
-                              unsigned int _uToBow, unsigned int _uToStern, unsigned int _uToPort, unsigned int _uToStarboard) = 0;
+                              unsigned int _uToBow, unsigned int _uToStern, unsigned int _uToPort, 
+                              unsigned int _uToStarboard, unsigned int timestamp, unsigned int fixtype, bool dte, 
+                              bool assigned, unsigned int repeat, bool raim) = 0;
         
         virtual void onType21(unsigned int _uMmsi, unsigned int _uAidType, const std::string &_strName, bool _bPosAccuracy, int _iPosLon, int _iPosLat,
                               unsigned int _uToBow, unsigned int _uToStern, unsigned int _uToPort, unsigned int _uToStarboard) = 0;
