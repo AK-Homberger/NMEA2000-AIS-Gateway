@@ -11,7 +11,7 @@ The solution is re-using the code from [this](https://github.com/aduvenhage/ais-
 
 It was necessary to change the code to make it usable with the Arduino IDE and the ESP32. The reason for the changes was the different C compiler versions (clang#14 to clang#11). It was quite an effort to do the backport to Arduino clang#11 version, because of missing functions.
 
-Currently following AIS message types are supported: 1-3, 5, 18, 24A, 24B
+Currently following AIS message types are supported: 1-3, 5, 18, 19, 24A, 24B
 
 To does:
 - Message type 14 for AIS safety related broadcast messages (to support AIS MOB devices).
@@ -43,5 +43,6 @@ You only need these parts for the gateway:
 
 
 ## Updates:
+- 19.02.21 Version 0.3: Added message type 19 support.
 - 19.02.21 Version 0.2: Added ETA calculation for message 5.
 - 18.02.21 Version 0.1: Initial version.
