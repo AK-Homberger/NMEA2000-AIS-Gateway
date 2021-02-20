@@ -11,7 +11,7 @@ The solution is re-using the code from [this](https://github.com/aduvenhage/ais-
 
 It was necessary to change the code to make it usable with the Arduino IDE and the ESP32. The reason for the changes was the different C compiler versions (clang#14 to clang#11). It was quite an effort to do the backport to Arduino clang#11 version, because of missing functions.
 
-Currently following AIS message types are supported: 1-3, 5, 18, 19, 24A, 24B
+Currently following AIS message types are supported: 1-3, 5, 14, 18, 19, 24A, 24B
 
 To use the gateway the following libraries have to be installed (as ZIP file):
 - [NMEA2000](https://github.com/ttlappalainen/NMEA2000)
