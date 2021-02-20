@@ -13,6 +13,8 @@ It was necessary to change the code, to make it usable with the Arduino IDE and 
 
 Currently, following AIS message types are supported: 1-3, 5, 14, 18, 19, 24A, 24B
 
+Detailled information regarding AIS messages can be found [here](https://gpsd.gitlab.io/gpsd/AIVDM.html)
+
 To use the gateway the following libraries have to be installed (as ZIP file):
 - [NMEA2000](https://github.com/ttlappalainen/NMEA2000)
 - [NMEA2000_esp32](https://github.com/ttlappalainen/NMEA2000_esp32)
