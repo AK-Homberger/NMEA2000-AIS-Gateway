@@ -26,7 +26,7 @@ The schematics and the PCB from the [WLAN gateway](https://github.com/AK-Homberg
 
 The board can be ordered at Aisler.net: https://aisler.net/p/DNXXRLFU
 
-**!!!Be careful with placing the the ESP32 on the PCB. The USB connector has to be on the right side!!!**
+**!!! Be careful with placing the the ESP32 on the PCB. The USB connector has to be on the right side !!!**
 
 You only need these parts for the gateway:
 
