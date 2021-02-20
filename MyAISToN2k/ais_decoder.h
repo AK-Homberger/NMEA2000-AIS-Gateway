@@ -281,6 +281,8 @@ namespace AIS
                              const std::string &_strDestination, unsigned int _ais_version, unsigned int _repeat, bool _dte) = 0;
         
         virtual void onType9(unsigned int _uMmsi, unsigned int _uSog, bool _bPosAccuracy, int _iPosLon, int _iPosLat, int _iCog, unsigned int _iAltitude) = 0;
+
+        virtual void onType14(unsigned int _repeat, unsigned int _uMmsi, const std::string &_strText, int _iPayloadSizeBits) = 0;
         
         virtual void onType18(unsigned int _uMsgType, unsigned int _uMmsi, unsigned int _uSog, bool _bPosAccuracy, 
                                long _iPosLon, long _iPosLat, int _iCog, int _iHeading, bool _raim, unsigned int _repeat,
@@ -347,6 +349,9 @@ namespace AIS
         
         /// decode Standard SAR Aircraft Position Report
         void decodeType11(PayloadBuffer &_buffer, unsigned int _uMsgType, int _iPayloadSizeBits);
+
+        /// decode Safety related Broadcast Message
+        void decodeType14(PayloadBuffer &_buffer, unsigned int _uMsgType, int _iPayloadSizeBits);
         
         /// decode Position Report (class B; type nibble already pulled from buffer)
         void decodeType18(PayloadBuffer &_buffer, unsigned int _uMsgType, int _iPayloadSizeBits);

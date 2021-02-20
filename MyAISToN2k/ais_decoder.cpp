@@ -391,6 +391,7 @@ void AisDecoder::enableMsgTypes(const std::set<int> &_types)
   setMsgCallback(5, &AisDecoder::decodeType5, _types);
   setMsgCallback(9, &AisDecoder::decodeType9, _types);
   setMsgCallback(11, &AisDecoder::decodeType411, _types);
+  setMsgCallback(14, &AisDecoder::decodeType14, _types);
   setMsgCallback(18, &AisDecoder::decodeType18, _types);
   setMsgCallback(19, &AisDecoder::decodeType19, _types);
   setMsgCallback(21, &AisDecoder::decodeType21, _types);
@@ -522,6 +523,24 @@ void AisDecoder::decodeType9(PayloadBuffer &_buffer, unsigned int _uMsgType, int
 
   onType9(mmsi, sog, posAccuracy, posLon, posLat, cog, altitude);
 }
+
+
+/* decode Standard SAR Aircraft Position Report */
+void AisDecoder::decodeType14(PayloadBuffer &_buffer, unsigned int _uMsgType, int _iPayloadSizeBits)
+{
+  if (!(_iPayloadSizeBits > 40 && _iPayloadSizeBits < 968))
+  {
+    throw std::runtime_error("Invalid payload size.");
+  }
+
+  // decode message fields (binary buffer has to go through all fields, but some fields are not used)
+  auto repeat =_buffer.getUnsignedValue(2);                 // repeatIndicator
+  auto mmsi = _buffer.getUnsignedValue(30);
+  _buffer.getUnsignedValue(2);  
+  auto text = _buffer.getString(_iPayloadSizeBits - 34 );
+  onType14(repeat, mmsi, text, _iPayloadSizeBits);
+}
+
 
 /* decode Position Report (class B; type nibble already pulled from buffer) */
 void AisDecoder::decodeType18(PayloadBuffer &_buffer, unsigned int _uMsgType, int _iPayloadSizeBits)

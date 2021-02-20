@@ -11,7 +11,7 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
+#include <Arduino.h>
 #include "ais_decoder.h"
 #include "default_sentence_parser.h"
 
@@ -103,6 +103,31 @@ class MyAisDecoder : public AIS::AisDecoder
       //Serial.println("9");
     }
 
+    virtual void onType14(unsigned int _repeat, unsigned int _uMmsi,
+                          const std::string &_strText, int _iPayloadSizeBits) override {
+
+      tN2kMsg N2kMsg;
+      char Text[80];
+      strncpy(Text, _strText.c_str(), sizeof(Text));
+      
+      N2kMsg.SetPGN(129802UL);
+      N2kMsg.Priority = 4;
+      N2kMsg.Destination = 255;
+      N2kMsg.AddByte((_repeat & 0x03) << 6 | (14 & 0x3f));
+      N2kMsg.Add4ByteUInt(_uMmsi);
+      N2kMsg.AddByte(0);
+      
+       if (strlen(Text) == 0) {
+          N2kMsg.AddByte(0x03);N2kMsg.AddByte(0x01);N2kMsg.AddByte(0x00);
+        } else {
+          N2kMsg.AddByte(strlen(Text)+2);N2kMsg.AddByte(0x01);
+          for (int i=0; i<strlen(Text); i++)
+            N2kMsg.AddByte(Text[i]);
+        }
+      
+      NMEA2000.SendMsg(N2kMsg);
+    }
+
     virtual void onType18(unsigned int _uMsgType, unsigned int _uMmsi, unsigned int _uSog, bool _bPosAccuracy,
                           long _iPosLon, long _iPosLat, int _iCog, int _iHeading, bool _raim, unsigned int _repeat,
                           bool _unit, bool _diplay, bool _dsc, bool _band, bool _msg22, bool _assigned,
@@ -153,7 +178,7 @@ class MyAisDecoder : public AIS::AisDecoder
                                  _uToStarboard, _uToBow, 0);
 
       NMEA2000.SendMsg(N2kMsg);
-      
+
     }
 
     virtual void onType21(unsigned int , unsigned int , const std::string &, bool , int , int , unsigned int , unsigned int , unsigned int , unsigned int ) override {
