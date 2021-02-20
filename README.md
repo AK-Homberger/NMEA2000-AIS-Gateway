@@ -13,9 +13,6 @@ It was necessary to change the code to make it usable with the Arduino IDE and t
 
 Currently following AIS message types are supported: 1-3, 5, 18, 19, 24A, 24B
 
-To does:
-- Message type 14 for AIS safety related broadcast messages (to support AIS MOB devices).
-
 To use the gateway the following libraries have to be installed (as ZIP file):
 - [NMEA2000](https://github.com/ttlappalainen/NMEA2000)
 - [NMEA2000_esp32](https://github.com/ttlappalainen/NMEA2000_esp32)
@@ -43,6 +40,7 @@ You only need these parts for the gateway:
 
 
 ## Updates:
+- 20.02.21 Version 0.4: Added message type 14 support.
 - 19.02.21 Version 0.3: Added message type 19 support.
 - 19.02.21 Version 0.2: Added ETA calculation for message 5.
 - 18.02.21 Version 0.1: Initial version.
