@@ -528,7 +528,7 @@ void AisDecoder::decodeType9(PayloadBuffer &_buffer, unsigned int _uMsgType, int
 /* decode AIS safety related broadcast */
 void AisDecoder::decodeType14(PayloadBuffer &_buffer, unsigned int _uMsgType, int _iPayloadSizeBits)
 {
-  if (!(_iPayloadSizeBits > 40 && _iPayloadSizeBits < 969))
+  if (!(_iPayloadSizeBits > 40 && _iPayloadSizeBits < 1009))
   {
     throw std::runtime_error("Invalid payload size.");
   }

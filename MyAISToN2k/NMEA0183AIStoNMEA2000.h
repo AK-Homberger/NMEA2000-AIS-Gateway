@@ -107,7 +107,7 @@ class MyAisDecoder : public AIS::AisDecoder
                           const std::string &_strText, int _iPayloadSizeBits) override {
 
       tN2kMsg N2kMsg;
-      char Text[80];
+      char Text[162];
       strncpy(Text, _strText.c_str(), sizeof(Text));
       
       N2kMsg.SetPGN(129802UL);
@@ -116,15 +116,15 @@ class MyAisDecoder : public AIS::AisDecoder
       N2kMsg.AddByte((_repeat & 0x03) << 6 | (14 & 0x3f));
       N2kMsg.Add4ByteUInt(_uMmsi);
       N2kMsg.AddByte(0);
-      
-       if (strlen(Text) == 0) {
-          N2kMsg.AddByte(0x03);N2kMsg.AddByte(0x01);N2kMsg.AddByte(0x00);
-        } else {
-          N2kMsg.AddByte(strlen(Text)+2);N2kMsg.AddByte(0x01);
-          for (int i=0; i<strlen(Text); i++)
-            N2kMsg.AddByte(Text[i]);
-        }
-      
+
+      if (strlen(Text) == 0) {
+        N2kMsg.AddByte(0x03); N2kMsg.AddByte(0x01); N2kMsg.AddByte(0x00);
+      } else {
+        N2kMsg.AddByte(strlen(Text) + 2); N2kMsg.AddByte(0x01);
+        for (int i = 0; i < strlen(Text); i++)
+          N2kMsg.AddByte(Text[i]);
+      }
+
       NMEA2000.SendMsg(N2kMsg);
     }
 
