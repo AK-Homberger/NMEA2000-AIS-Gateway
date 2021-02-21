@@ -525,14 +525,14 @@ void AisDecoder::decodeType9(PayloadBuffer &_buffer, unsigned int _uMsgType, int
 }
 
 
-/* decode Standard SAR Aircraft Position Report */
+/* decode AIS safety related broadcast */
 void AisDecoder::decodeType14(PayloadBuffer &_buffer, unsigned int _uMsgType, int _iPayloadSizeBits)
 {
-  if (!(_iPayloadSizeBits > 40 && _iPayloadSizeBits < 968))
+  if (!(_iPayloadSizeBits > 40 && _iPayloadSizeBits < 969))
   {
     throw std::runtime_error("Invalid payload size.");
   }
-
+  
   // decode message fields (binary buffer has to go through all fields, but some fields are not used)
   auto repeat =_buffer.getUnsignedValue(2);                 // repeatIndicator
   auto mmsi = _buffer.getUnsignedValue(30);
