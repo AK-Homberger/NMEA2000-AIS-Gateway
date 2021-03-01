@@ -109,10 +109,10 @@ class MyAisDecoder : public AIS::AisDecoder
       tN2kMsg N2kMsg;
       char Text[162];
       strncpy(Text, _strText.c_str(), sizeof(Text));
-      
+
       N2kMsg.SetPGN(129802UL);
       N2kMsg.Priority = 4;
-      N2kMsg.Destination = 255;
+      N2kMsg.Destination = 255;  // Redundant, PGN129802 is broadcast by default.
       N2kMsg.AddByte((_repeat & 0x03) << 6 | (14 & 0x3f));
       N2kMsg.Add4ByteUInt(_uMmsi);
       N2kMsg.AddByte(0);
@@ -155,31 +155,36 @@ class MyAisDecoder : public AIS::AisDecoder
       //Serial.println("19");
       tN2kMsg N2kMsg;
 
-      // PGN129039
-      SetN2kAISClassBPosition(N2kMsg, 19, (tN2kAISRepeat) _repeat, _uMmsi,
-                              _iPosLat / 600000.0, _iPosLon / 600000.0, _bPosAccuracy, _raim,
-                              _timestamp, _iCog * degToRad, _uSog * knToms / 10.0,
-                              _iHeading * degToRad, (tN2kAISUnit) 0,
-                              0, 0, 0, 0, (tN2kAISMode) _assigned, 0);
+      // PGN129040
 
-      NMEA2000.SendMsg(N2kMsg);
-
-      char Name[30];
+      char Name[21] = "";
       strncpy(Name, _strName.c_str(), sizeof(Name));
 
-      // PGN129809
-      SetN2kAISClassBStaticPartA(N2kMsg, 19, (tN2kAISRepeat) _repeat, _uMmsi, Name);
-
-      NMEA2000.SendMsg(N2kMsg);
-
-      // PGN129810
-      SetN2kAISClassBStaticPartB(N2kMsg, 19, (tN2kAISRepeat)_repeat, _uMmsi,
-                                 _uType, "", "", _uToBow + _uToStern, _uToPort + _uToStarboard,
-                                 _uToStarboard, _uToBow, 0);
-
-      NMEA2000.SendMsg(N2kMsg);
-
+      N2kMsg.SetPGN(129040UL);
+      N2kMsg.Priority = 4;
+      N2kMsg.AddByte((_repeat & 0x03) << 6 | (19 & 0x3f));
+      N2kMsg.Add4ByteUInt(_uMmsi);
+      N2kMsg.Add4ByteDouble(_iPosLon / 600000.0, 1e-07);
+      N2kMsg.Add4ByteDouble(_iPosLat / 600000.0, 1e-07);
+      N2kMsg.AddByte((_timestamp & 0x3f) << 2 | (_raim & 0x01) << 1 | (_bPosAccuracy & 0x01));
+      N2kMsg.Add2ByteUDouble(_iCog * degToRad, 1e-04);
+      N2kMsg.Add2ByteUDouble(_uSog * knToms / 10.0, 0.01);
+      N2kMsg.AddByte(0xff); // Regional Application
+      N2kMsg.AddByte(0xff); // Regional Application
+      N2kMsg.AddByte(_uType );
+      N2kMsg.Add2ByteUDouble(_iHeading * degToRad, 1e-04);
+      N2kMsg.AddByte(_fixtype << 4);
+      N2kMsg.Add2ByteDouble(_uToBow + _uToStern, 0.1);
+      N2kMsg.Add2ByteDouble(_uToPort + _uToStarboard, 0.1);
+      N2kMsg.Add2ByteDouble(_uToStarboard, 0.1);
+      N2kMsg.Add2ByteDouble(_uToBow, 0.1);
+      N2kMsg.AddStr(Name, 20);
+      N2kMsg.AddByte((_dte & 0x01) | (_assigned & 0x01) << 1) ;
+      N2kMsg.AddByte(0);
+      
+      NMEA2000.SendMsg(N2kMsg);      
     }
+
 
     virtual void onType21(unsigned int , unsigned int , const std::string &, bool , int , int , unsigned int , unsigned int , unsigned int , unsigned int ) override {
       //Serial.println("21");

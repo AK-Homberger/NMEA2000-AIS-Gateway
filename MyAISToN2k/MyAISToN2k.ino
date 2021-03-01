@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // Reads AIVDM messages from NMEA0183 (ESP32 UART 2 on GPIO 16) and forwards them to the N2k bus
-// Version 0.4, 20.02.2021, AK-Homberger
+// Version 0.5, 01.03.2021, AK-Homberger
 
 // Is using modified (clang#14 to clang#11) version of this AIS decoder: https://github.com/aduvenhage/ais-decoder
 // AIS decoder is under MIT license: https://github.com/aduvenhage/ais-decoder/blob/master/LICENSE
@@ -133,7 +133,6 @@ void MyHandleNMEA2000Msg(const tN2kMsg &N2kMsg) {
 void CheckSourceAddressChange() {
   int SourceAddress = NMEA2000.GetN2kSource();
   if (SourceAddress != NodeAddress) { // Save potentially changed Source Address to NVS memory
-    NodeAddress = SourceAddress;      // Set new Node Address (to save only once)
     preferences.begin("nvs", false);
     preferences.putInt("LastNodeAddress", SourceAddress);
     preferences.end();
