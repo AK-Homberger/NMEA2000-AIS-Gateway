@@ -30,6 +30,17 @@ The board can be ordered at Aisler.net: https://aisler.net/p/DNXXRLFU
 
 **!!! Be careful with placing the the ESP32 on the PCB. The USB connector has to be on the right side !!!**
 
+# Remove the 120 ohm resistor from the transceiver
+For unknown reasons, many CAN bus transceivers for the ESP32 have a 120 Ohm resistor built into them. The resistor does not belong to the devices at the ends of the stub lines, but to the ends of the backbone cable.
+
+Whether the transceiver contains a 120 ohm resistor can be determined either by looking at the circuit diagram or by measuring with the multimeter.
+
+A knife tip is suitable for removing the SMD resistor. Use it to scratch or pry off the resistance. With the transceiver shown here, place the tip of the knife in front of the resistor (between the chip and the resistor) and support the knife against the chip. Then lever the tip against the resistance and use it to scratch / loosen / break the resistance. Whichever happens first.
+
+![Transceiver](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/CAN-Transceiver.jpg)
+
+It then looks like the picture. Then measure to be on the safe side. Without a 120 ohm resistor, the multimeter shows approx. 75 kOhm.
+
 ## Parts:
 You only need these parts for the gateway:
 
