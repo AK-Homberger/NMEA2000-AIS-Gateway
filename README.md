@@ -2,6 +2,8 @@
 
 This repository shows how to build a gateway to read NMEA0183 AIS messages and transform them to NMEA2000 PGNs.
 
+If you need the opposite direction, then this might be of interest for you: https://github.com/ronzeiller/NMEA0183-AIS
+
 The purpose is to use an existing RS232 AIS receiver together with devices (e.g. MFD) that support only NMEA2000.
 Many new chart plotters only support NMEA2000 and do not have an additional RS232 or RS422 input.
 
