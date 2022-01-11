@@ -2,7 +2,7 @@
 
 This repository shows how to build a gateway to read NMEA0183 AIS messages and transform them to NMEA2000 PGNs.
 
-**It is tested with Actisense NMEA-Reader and SignalK shows the position of the AIS targets. But currently Raymarine MFDs do not show the objects. Further tests are necessry to identfy the problem and fix the issue. **
+** It is tested with Actisense NMEA-Reader and SignalK shows the position of the AIS targets. But currently Raymarine MFDs do not show the objects. Further tests are necessry to identfy the problem and fix the issue. **
 
 
 If you need the opposite direction, then this might be of interest for you: https://github.com/ronzeiller/NMEA0183-AIS
