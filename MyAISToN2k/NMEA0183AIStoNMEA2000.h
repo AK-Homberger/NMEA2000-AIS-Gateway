@@ -12,6 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <Arduino.h>
+#include <N2kMessages.h>
 #include "ais_decoder.h"
 #include "default_sentence_parser.h"
 
@@ -29,12 +30,41 @@ class MyAisDecoder : public AIS::AisDecoder
     {}
 
   protected:
+
+    double decodeRot(int iRot) {
+      //see https://gpsd.gitlab.io/gpsd/AIVDM.html#_type_5_static_and_voyage_related_data
+      //and https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:supplementary_software:nmea2000
+      double rot = N2kDoubleNA;
+      if (iRot == 127) rot = 10;
+      else if (iRot == -127) rot = -10;
+      else if (iRot == 0) rot = 0;
+      else if ( 1 <= iRot && iRot <= 126 ) rot = iRot * iRot / 22.401289;
+      else if ( iRot >= -126 && iRot <= -1) rot = iRot * iRot / -22.401289 ;
+      //rot now in deg/minute
+      rot = rot * degToRad / 60.0; //N"K expects rot in radian/s
+      return rot;
+    }
+    double decodeCog(int iCog) {
+      double cog = N2kDoubleNA;
+      if (iCog >= 0 && iCog < 3600) {
+        cog = iCog / 10.0 * degToRad;
+      }
+      return cog;
+    }
+    double decodeHeading(int iHeading) {
+      double heading = N2kDoubleNA;
+      if ( iHeading >= 0 && iHeading <= 359) {
+        heading = iHeading * degToRad;
+      }
+      return heading;
+    }
+
     virtual void onType123(unsigned int _uMsgType, unsigned int _uMmsi, unsigned int _uNavstatus,
                            int _iRot, unsigned int _uSog, bool _bPosAccuracy,
                            long _iPosLon, long _iPosLat, int _iCog, int _iHeading, int _Repeat, bool _Raim,
                            unsigned int _timestamp, unsigned int _maneuver_i) override {
 
-      // Serial.println("123");
+      //Serial.println("123");
 
       tN2kMsg N2kMsg;
 
@@ -42,8 +72,8 @@ class MyAisDecoder : public AIS::AisDecoder
       SetN2kAISClassAPosition(N2kMsg, _uMsgType, (tN2kAISRepeat)_Repeat, _uMmsi,
                               _iPosLat / 600000.0, _iPosLon / 600000.0,
                               _bPosAccuracy, _Raim, _timestamp,
-                              _iCog * degToRad, _uSog * knToms / 10.0,
-                              _iHeading * degToRad, _iRot, (tN2kAISNavStatus)_uNavstatus);
+                              decodeCog(_iCog), _uSog * knToms / 10.0,
+                              decodeHeading(_iHeading), decodeRot(_iRot), (tN2kAISNavStatus)_uNavstatus);
 
       NMEA2000.SendMsg(N2kMsg);
     }
@@ -84,9 +114,12 @@ class MyAisDecoder : public AIS::AisDecoder
       char Name[30];
       char Dest[30];
 
-      strncpy(CS, _strCallsign.c_str(), sizeof(CS));
-      strncpy(Name, _strName.c_str(), sizeof(Name));
-      strncpy(Dest, _strDestination.c_str(), sizeof(Dest));
+      strncpy(CS, _strCallsign.c_str(), sizeof(CS) - 1);
+      CS[29] = 0;
+      strncpy(Name, _strName.c_str(), sizeof(Name) - 1);
+      Name[29] = 0;
+      strncpy(Dest, _strDestination.c_str(), sizeof(Dest) - 1);
+      Dest[29] = 0;
 
       // PGN129794
       SetN2kAISClassAStatic(N2kMsg, _uMsgType, (tN2kAISRepeat) _repeat, _uMmsi,
@@ -108,7 +141,8 @@ class MyAisDecoder : public AIS::AisDecoder
 
       tN2kMsg N2kMsg;
       char Text[162];
-      strncpy(Text, _strText.c_str(), sizeof(Text));
+      strncpy(Text, _strText.c_str(), sizeof(Text) - 1);
+      Text[161] = 0;
 
       N2kMsg.SetPGN(129802UL);
       N2kMsg.Priority = 4;
@@ -125,6 +159,7 @@ class MyAisDecoder : public AIS::AisDecoder
           N2kMsg.AddByte(Text[i]);
       }
 
+      // N2kMsg.AddByte(0);  // Sequence ID
       NMEA2000.SendMsg(N2kMsg);
     }
 
@@ -139,8 +174,8 @@ class MyAisDecoder : public AIS::AisDecoder
       // PGN129039
       SetN2kAISClassBPosition(N2kMsg, _uMsgType, (tN2kAISRepeat) _repeat, _uMmsi,
                               _iPosLat / 600000.0, _iPosLon / 600000.0, _bPosAccuracy, _raim,
-                              _timestamp, _iCog * degToRad, _uSog * knToms / 10.0,
-                              _iHeading * degToRad, (tN2kAISUnit) _unit,
+                              _timestamp, decodeCog(_iCog), _uSog * knToms / 10.0,
+                              decodeHeading(_iHeading), (tN2kAISUnit) _unit,
                               _diplay, _dsc, _band, _msg22, (tN2kAISMode) _assigned, _state);
 
       NMEA2000.SendMsg(N2kMsg);
@@ -158,7 +193,8 @@ class MyAisDecoder : public AIS::AisDecoder
       // PGN129040
 
       char Name[21] = "";
-      strncpy(Name, _strName.c_str(), sizeof(Name));
+      strncpy(Name, _strName.c_str(), sizeof(Name) - 1);
+      Name[20] = 0;
 
       N2kMsg.SetPGN(129040UL);
       N2kMsg.Priority = 4;
@@ -167,22 +203,23 @@ class MyAisDecoder : public AIS::AisDecoder
       N2kMsg.Add4ByteDouble(_iPosLon / 600000.0, 1e-07);
       N2kMsg.Add4ByteDouble(_iPosLat / 600000.0, 1e-07);
       N2kMsg.AddByte((_timestamp & 0x3f) << 2 | (_raim & 0x01) << 1 | (_bPosAccuracy & 0x01));
-      N2kMsg.Add2ByteUDouble(_iCog * degToRad, 1e-04);
+      N2kMsg.Add2ByteUDouble(decodeCog(_iCog), 1e-04);
       N2kMsg.Add2ByteUDouble(_uSog * knToms / 10.0, 0.01);
       N2kMsg.AddByte(0xff); // Regional Application
       N2kMsg.AddByte(0xff); // Regional Application
       N2kMsg.AddByte(_uType );
-      N2kMsg.Add2ByteUDouble(_iHeading * degToRad, 1e-04);
+      N2kMsg.Add2ByteUDouble(decodeHeading(_iHeading), 1e-04);
       N2kMsg.AddByte(_fixtype << 4);
       N2kMsg.Add2ByteDouble(_uToBow + _uToStern, 0.1);
       N2kMsg.Add2ByteDouble(_uToPort + _uToStarboard, 0.1);
       N2kMsg.Add2ByteDouble(_uToStarboard, 0.1);
       N2kMsg.Add2ByteDouble(_uToBow, 0.1);
-      N2kMsg.AddStr(Name, 20);
+      N2kMsg.AddStr(Name, strlen(Name));
       N2kMsg.AddByte((_dte & 0x01) | (_assigned & 0x01) << 1) ;
-      N2kMsg.AddByte(0);
-      
-      NMEA2000.SendMsg(N2kMsg);      
+      N2kMsg.AddByte(0x00);
+      //N2kMsg.AddByte(0x00); // Sequence ID
+
+      NMEA2000.SendMsg(N2kMsg);
     }
 
 
@@ -196,7 +233,10 @@ class MyAisDecoder : public AIS::AisDecoder
 
       tN2kMsg N2kMsg;
       char Name[30];
-      strncpy(Name, _strName.c_str(), sizeof(Name));
+
+      strncpy(Name, _strName.c_str(), sizeof(Name) - 1);
+      Name[29] = 0;
+
 
       // PGN129809
       SetN2kAISClassBStaticPartA(N2kMsg, _uMsgType, (tN2kAISRepeat) _repeat, _uMmsi, Name);
@@ -216,8 +256,10 @@ class MyAisDecoder : public AIS::AisDecoder
       char CS[30];
       char Vendor[30];
 
-      strncpy(CS, _strCallsign.c_str(), sizeof(CS));
-      strncpy(Vendor, _strVendor.c_str(), sizeof(Vendor));
+      strncpy(CS, _strCallsign.c_str(), sizeof(CS)-1);
+      CS[29]=0;
+      strncpy(Vendor, _strVendor.c_str(), sizeof(Vendor)-1);
+      Vendor[29]=0;
 
       // PGN129810
       SetN2kAISClassBStaticPartB(N2kMsg, _uMsgType, (tN2kAISRepeat)_repeat, _uMmsi,
