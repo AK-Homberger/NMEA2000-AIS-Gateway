@@ -69,11 +69,31 @@ class MyAisDecoder : public AIS::AisDecoder
       tN2kMsg N2kMsg;
 
       // PGN129038
-      SetN2kAISClassAPosition(N2kMsg, _uMsgType, (tN2kAISRepeat)_Repeat, _uMmsi,
+      /*
+        SetN2kAISClassAPosition(N2kMsg, _uMsgType, (tN2kAISRepeat)_Repeat, _uMmsi,
                               _iPosLat / 600000.0, _iPosLon / 600000.0,
                               _bPosAccuracy, _Raim, _timestamp,
                               decodeCog(_iCog), _uSog * knToms / 10.0,
                               decodeHeading(_iHeading), decodeRot(_iRot), (tN2kAISNavStatus)_uNavstatus);
+      */
+
+      N2kMsg.SetPGN(129038L);
+      N2kMsg.Priority = 4;
+      N2kMsg.AddByte((_Repeat & 0x03) << 6 | (_uMsgType & 0x3f));
+      N2kMsg.Add4ByteUInt(_uMmsi);
+      N2kMsg.Add4ByteDouble(_iPosLon / 600000.0, 1e-07);
+      N2kMsg.Add4ByteDouble(_iPosLat / 600000.0, 1e-07);
+      N2kMsg.AddByte((_timestamp & 0x3f) << 2 | (_Raim & 0x01) << 1 | (_bPosAccuracy & 0x01));
+      N2kMsg.Add2ByteUDouble(decodeCog(_iCog), 1e-04);
+      N2kMsg.Add2ByteUDouble(_uSog * knToms, 0.01);
+      N2kMsg.AddByte(0x00); // Communication State (19 bits)
+      N2kMsg.AddByte(0x00);
+      N2kMsg.AddByte(0x00); // AIS transceiver information (5 bits)
+      N2kMsg.Add2ByteUDouble(decodeHeading(_iHeading), 1e-04);
+      N2kMsg.Add2ByteDouble(decodeRot(_iRot), 3.125E-05); // 1e-3/32.0
+      N2kMsg.AddByte(0xF0 | (_uNavstatus & 0x0f));
+      N2kMsg.AddByte(0xff); // Reserved
+      N2kMsg.AddByte(0xff); // SID (NA)
 
       NMEA2000.SendMsg(N2kMsg);
     }
@@ -110,16 +130,21 @@ class MyAisDecoder : public AIS::AisDecoder
       uint16_t eta_days = tNMEA0183Msg::makeTime(tm) / (24UL * 3600UL);
 
       tN2kMsg N2kMsg;
-      char CS[30];
-      char Name[30];
-      char Dest[30];
+      char CS[8];
+      char Name[21];
+      char Dest[21];
 
       strncpy(CS, _strCallsign.c_str(), sizeof(CS) - 1);
-      CS[29] = 0;
+      for (int i = strlen(CS); i < 7; i++) CS[i] = 32;
+      CS[7] = 0;
+
       strncpy(Name, _strName.c_str(), sizeof(Name) - 1);
-      Name[29] = 0;
+      for (int i = strlen(Name); i < 20; i++) Name[i] = 32;
+      Name[20] = 0;
+
       strncpy(Dest, _strDestination.c_str(), sizeof(Dest) - 1);
-      Dest[29] = 0;
+      for (int i = strlen(Dest); i < 20; i++) Dest[i] = 32;
+      Dest[20] = 0;
 
       // PGN129794
       SetN2kAISClassAStatic(N2kMsg, _uMsgType, (tN2kAISRepeat) _repeat, _uMmsi,
@@ -192,8 +217,9 @@ class MyAisDecoder : public AIS::AisDecoder
 
       // PGN129040
 
-      char Name[21] = "";
+      char Name[21];
       strncpy(Name, _strName.c_str(), sizeof(Name) - 1);
+      for (int i = strlen(Name); i < 20; i++) Name[i] = 32;
       Name[20] = 0;
 
       N2kMsg.SetPGN(129040UL);
@@ -214,10 +240,10 @@ class MyAisDecoder : public AIS::AisDecoder
       N2kMsg.Add2ByteDouble(_uToPort + _uToStarboard, 0.1);
       N2kMsg.Add2ByteDouble(_uToStarboard, 0.1);
       N2kMsg.Add2ByteDouble(_uToBow, 0.1);
-      N2kMsg.AddStr(Name, strlen(Name));
+      N2kMsg.AddStr(Name, 20);
       N2kMsg.AddByte((_dte & 0x01) | (_assigned & 0x01) << 1) ;
       N2kMsg.AddByte(0x00);
-      //N2kMsg.AddByte(0x00); // Sequence ID
+      N2kMsg.AddByte(0xff); // Sequence ID (Not Available)
 
       NMEA2000.SendMsg(N2kMsg);
     }
@@ -232,10 +258,11 @@ class MyAisDecoder : public AIS::AisDecoder
       //Serial.println("24A");
 
       tN2kMsg N2kMsg;
-      char Name[30];
 
+      char Name[21];
       strncpy(Name, _strName.c_str(), sizeof(Name) - 1);
-      Name[29] = 0;
+      for (int i = strlen(Name); i < 20; i++) Name[i] = 32;
+      Name[20] = 0;
 
 
       // PGN129809
@@ -253,13 +280,15 @@ class MyAisDecoder : public AIS::AisDecoder
 
 
       tN2kMsg N2kMsg;
-      char CS[30];
-      char Vendor[30];
+      char CS[8];
+      char Vendor[8];
 
-      strncpy(CS, _strCallsign.c_str(), sizeof(CS)-1);
-      CS[29]=0;
-      strncpy(Vendor, _strVendor.c_str(), sizeof(Vendor)-1);
-      Vendor[29]=0;
+      strncpy(CS, _strCallsign.c_str(), sizeof(CS) - 1);
+      for (int i = strlen(CS); i < 7; i++) CS[i] = 32;
+      CS[7] = 0;
+      strncpy(Vendor, _strVendor.c_str(), sizeof(Vendor) - 1);
+      for (int i = strlen(Vendor); i < 7; i++) Vendor[i] = 32;
+      Vendor[7] = 0;
 
       // PGN129810
       SetN2kAISClassBStaticPartB(N2kMsg, _uMsgType, (tN2kAISRepeat)_repeat, _uMmsi,
