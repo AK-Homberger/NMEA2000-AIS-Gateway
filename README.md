@@ -19,6 +19,14 @@ Currently, following AIS message types are supported: 1-3, 5, 14, 18, 19, 24A, 2
 
 Detailled information regarding AIS messages can be found [here](https://gpsd.gitlab.io/gpsd/AIVDM.html).
 
+Only AIVDM messages (other ship) are decoded by default. If you also want to decode and forward own ship messages (AIVDO) comment/uncomment the apprpriate lines:
+
+```
+// Select (comment/uncomment) if you want to decode only other ship (AIVDM) or also own ship (AIVDO) messages
+// if (!NMEA0183Msg.IsMessageCode("VDM") && !NMEA0183Msg.IsMessageCode("VDO")) return;   // Not a AIVDM/AIVDO message, return
+if (!NMEA0183Msg.IsMessageCode("VDM")) return;   // Not a AIVDM message, return
+```
+
 To use the gateway the following libraries have to be installed (as ZIP file):
 - [NMEA2000](https://github.com/ttlappalainen/NMEA2000)
 - [NMEA2000_esp32](https://github.com/ttlappalainen/NMEA2000_esp32)
