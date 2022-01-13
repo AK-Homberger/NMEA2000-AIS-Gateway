@@ -60,7 +60,7 @@ You only need these parts for the gateway:
 
 
 ## Updates:
-- 13.01.22 Version 0.6: Corrected Time PGNs for ETA calculation and changed AIS PGN handling for Raymarine MFDs.
+- 13.01.22 Version 0.6: Corrected time PGNs for ETA calculation and changed AIS PGN handling for Raymarine MFDs.
 - 01.03.21 Version 0.5: Send message type 19 as PGN129040 (instead of 18 and 24a/24b PGNs).
 - 20.02.21 Version 0.4: Added message type 14 support.
 - 19.02.21 Version 0.3: Added message type 19 support.
