@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // Reads AIVDM messages from NMEA0183 (ESP32 UART 2 on GPIO 16) and forwards them to the N2k bus
-// Version 0.6, 13.01.2022, AK-Homberger
+// Version 0.7, 13.01.2022, AK-Homberger
 
 // Is using modified (clang#14 to clang#11) version of this AIS decoder: https://github.com/aduvenhage/ais-decoder
 // AIS decoder is under MIT license: https://github.com/aduvenhage/ais-decoder/blob/master/LICENSE
@@ -116,8 +116,8 @@ void HandleGNSS(const tN2kMsg & N2kMsg) {
   double SecondsSinceMidnight = 0;
 
   ParseN2kGNSS(N2kMsg, SID, DaysSince1970, SecondsSinceMidnight, Latitude, Longitude, Altitude,
-                    GNSStype, GNSSmethod, nSatellites, HDOP, PDOP, GeoidalSeparation,
-                    nReferenceStations, ReferenceStationType, ReferenceSationID, AgeOfCorrection);
+               GNSStype, GNSSmethod, nSatellites, HDOP, PDOP, GeoidalSeparation,
+               nReferenceStations, ReferenceStationType, ReferenceSationID, AgeOfCorrection);
 }
 
 
@@ -145,17 +145,21 @@ void CheckSourceAddressChange() {
 //*****************************************************************************
 void ParseAIVDM_Message() {
   int i = 0;
-
-  if (!NMEA0183.GetMessage(NMEA0183Msg)) return;  // New message ?
-
   char buf[MAX_NMEA0183_MESSAGE_SIZE];
 
-  if (!NMEA0183Msg.GetMessage(buf, MAX_NMEA0183_MESSAGE_SIZE)) return;  // GetMessage failed
+  if (!NMEA0183.GetMessage(NMEA0183Msg)) return;  // New message? If not return
+
+  // Select (comment/uncomment) if you want to decode only other ship (AIVDM) or also own ship (AIVDO) messages
+  
+  // if (!NMEA0183Msg.IsMessageCode("VDM") && !NMEA0183Msg.IsMessageCode("VDO")) return;   // Not a AIVDM/AIVDO message, return
+  if (!NMEA0183Msg.IsMessageCode("VDM")) return;   // Not a AIVDM message, return
+
+  if (!NMEA0183Msg.GetMessage(buf, MAX_NMEA0183_MESSAGE_SIZE)) return;  // GetMessage copy to buffer failed
 
   strcat(buf, "\n");  // Decoder expects that.
 
   do {
-    i = decoder.decodeMsg(buf, strlen(buf), i, parser);   // Decode AIVDM message.
+    i = decoder.decodeMsg(buf, strlen(buf), i, parser);   // Decode AIVDM/AIVDO message
   } while (i != 0);                                       // To be called until return value is 0
 }
 
