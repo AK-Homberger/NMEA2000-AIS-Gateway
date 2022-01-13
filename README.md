@@ -68,7 +68,7 @@ You only need these parts for the gateway:
 
 
 ## Updates:
-- 13.01.22 Version 0.7: Select weather AIVDO messages (own ship) are to be decoded also in addition to AIVDM.
+- 13.01.22 Version 0.7: Select wether AIVDO messages (own ship) are to be decoded also in addition to AIVDM.
 - 13.01.22 Version 0.6: Corrected time PGNs for ETA calculation and changed AIS PGN handling for Raymarine MFDs.
 - 01.03.21 Version 0.5: Send message type 19 as PGN129040 (instead of 18 and 24a/24b PGNs).
 - 20.02.21 Version 0.4: Added message type 14 support.
