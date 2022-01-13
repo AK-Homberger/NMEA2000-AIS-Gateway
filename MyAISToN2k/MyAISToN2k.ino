@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // Reads AIVDM messages from NMEA0183 (ESP32 UART 2 on GPIO 16) and forwards them to the N2k bus
-// Version 0.5, 01.03.2021, AK-Homberger
+// Version 0.6, 13.01.2022, AK-Homberger
 
 // Is using modified (clang#14 to clang#11) version of this AIS decoder: https://github.com/aduvenhage/ais-decoder
 // AIS decoder is under MIT license: https://github.com/aduvenhage/ais-decoder/blob/master/LICENSE
@@ -124,8 +124,8 @@ void HandleGNSS(const tN2kMsg & N2kMsg) {
 //*****************************************************************************
 void MyHandleNMEA2000Msg(const tN2kMsg &N2kMsg) {
 
-  if (N2kMsg.PGN == 126992L) HandleGNSS(N2kMsg);      // Just to get time from GNSS
-  if (N2kMsg.PGN == 129029L) HandleSytemTime(N2kMsg); // or this way
+  if (N2kMsg.PGN == 129029UL) HandleGNSS(N2kMsg);      // Just to get time from GNSS
+  if (N2kMsg.PGN == 126992UL) HandleSytemTime(N2kMsg); // or this way
 }
 
 
