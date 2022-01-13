@@ -4,7 +4,7 @@ This repository shows how to build a gateway to read NMEA0183 AIS messages and t
 
 If you need the opposite direction, then this might be of interest for you: https://github.com/ronzeiller/NMEA0183-AIS
 
-The purpose is to use an existing RS232 AIS receiver together with devices (e.g. MFD) that support only NMEA2000.
+The purpose is to use an existing NMEA0183 AIS receiver together with devices (e.g. MFD) that support only NMEA2000.
 Many new chart plotters only support NMEA2000 and do not have an additional RS232 or RS422 input.
 
 I had to change and add some AIS related [PGN structures](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/2288de29feee1e086f017c1612d95eca21bd1c42/MyAISToN2k/NMEA0183AIStoNMEA2000.h#L80) in addition to the NMEA2000 library to make this work also with Raymarine MFDs.
