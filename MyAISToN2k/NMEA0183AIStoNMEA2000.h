@@ -85,7 +85,7 @@ class MyAisDecoder : public AIS::AisDecoder
       N2kMsg.Add4ByteDouble(_iPosLat / 600000.0, 1e-07);
       N2kMsg.AddByte((_timestamp & 0x3f) << 2 | (_Raim & 0x01) << 1 | (_bPosAccuracy & 0x01));
       N2kMsg.Add2ByteUDouble(decodeCog(_iCog), 1e-04);
-      N2kMsg.Add2ByteUDouble(_uSog * knToms, 0.01);
+      N2kMsg.Add2ByteUDouble(_uSog * knToms / 10.0, 0.01);
       N2kMsg.AddByte(0x00); // Communication State (19 bits)
       N2kMsg.AddByte(0x00);
       N2kMsg.AddByte(0x00); // AIS transceiver information (5 bits)
