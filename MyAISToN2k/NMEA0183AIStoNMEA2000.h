@@ -135,16 +135,17 @@ class MyAisDecoder : public AIS::AisDecoder
       char Dest[21];
 
       strncpy(CS, _strCallsign.c_str(), sizeof(CS) - 1);
-      for (int i = strlen(CS); i < 7; i++) CS[i] = 32;
       CS[7] = 0;
-
+      for (int i = strlen(CS); i < 7; i++) CS[i] = 32;
+      
       strncpy(Name, _strName.c_str(), sizeof(Name) - 1);
-      for (int i = strlen(Name); i < 20; i++) Name[i] = 32;
       Name[20] = 0;
-
+      for (int i = strlen(Name); i < 20; i++) Name[i] = 32;
+      
       strncpy(Dest, _strDestination.c_str(), sizeof(Dest) - 1);
-      for (int i = strlen(Dest); i < 20; i++) Dest[i] = 32;
       Dest[20] = 0;
+      for (int i = strlen(Dest); i < 20; i++) Dest[i] = 32;
+
 
       // PGN129794
       SetN2kAISClassAStatic(N2kMsg, _uMsgType, (tN2kAISRepeat) _repeat, _uMmsi,
@@ -219,9 +220,9 @@ class MyAisDecoder : public AIS::AisDecoder
 
       char Name[21];
       strncpy(Name, _strName.c_str(), sizeof(Name) - 1);
-      for (int i = strlen(Name); i < 20; i++) Name[i] = 32;
       Name[20] = 0;
-
+      for (int i = strlen(Name); i < 20; i++) Name[i] = 32;
+      
       N2kMsg.SetPGN(129040UL);
       N2kMsg.Priority = 4;
       N2kMsg.AddByte((_repeat & 0x03) << 6 | (19 & 0x3f));
@@ -261,10 +262,9 @@ class MyAisDecoder : public AIS::AisDecoder
 
       char Name[21];
       strncpy(Name, _strName.c_str(), sizeof(Name) - 1);
-      for (int i = strlen(Name); i < 20; i++) Name[i] = 32;
       Name[20] = 0;
-
-
+      for (int i = strlen(Name); i < 20; i++) Name[i] = 32;
+      
       // PGN129809
       SetN2kAISClassBStaticPartA(N2kMsg, _uMsgType, (tN2kAISRepeat) _repeat, _uMmsi, Name);
 
@@ -284,12 +284,13 @@ class MyAisDecoder : public AIS::AisDecoder
       char Vendor[8];
 
       strncpy(CS, _strCallsign.c_str(), sizeof(CS) - 1);
-      for (int i = strlen(CS); i < 7; i++) CS[i] = 32;
       CS[7] = 0;
+      for (int i = strlen(CS); i < 7; i++) CS[i] = 32;
+      
       strncpy(Vendor, _strVendor.c_str(), sizeof(Vendor) - 1);
-      for (int i = strlen(Vendor); i < 7; i++) Vendor[i] = 32;
       Vendor[7] = 0;
-
+      for (int i = strlen(Vendor); i < 7; i++) Vendor[i] = 32;
+      
       // PGN129810
       SetN2kAISClassBStaticPartB(N2kMsg, _uMsgType, (tN2kAISRepeat)_repeat, _uMmsi,
                                  _uType, Vendor, CS, _uToBow + _uToStern, _uToPort + _uToStarboard,
