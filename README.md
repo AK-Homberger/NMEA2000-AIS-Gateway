@@ -12,8 +12,6 @@ I had to change and add some AIS related [PGN structures](https://github.com/AK-
 ![AIS1](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/AIS1.jpg)
 ![AIS2](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/AIS2.jpg)
 
-![Raymarine-AIS](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/Raymarine-AIS.JPG)
-
 The used ESP32 reads AIVDM messages from UART2 (connected to GPIO 16). Forwarding to NMEA2000 is done via a CAN bus transceiver.
 
 The solution is re-using AIS decoder code from [this](https://github.com/aduvenhage/ais-decoder) GitHub repository. It is published under [MIT-License](https://github.com/aduvenhage/ais-decoder/blob/master/LICENSE).
