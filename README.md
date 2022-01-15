@@ -22,7 +22,7 @@ Currently, following AIS message types are supported: 1-3, 5, 14, 18, 19, 24A, 2
 
 Detailled information regarding AIS messages can be found [here](https://gpsd.gitlab.io/gpsd/AIVDM.html).
 
-Only AIVDM messages (other ships) are decoded by default. If you also want to decode and forward own ship messages (AIVDO) comment/uncomment the appropriate lines:
+Only AIVDM messages (other ships) are decoded by default. If you also want to decode and forward own ship messages (AIVDO) comment/uncomment the appropriate lines (requires Arduino IDE):
 
 ```
 // Select (comment/uncomment) if you want to decode only other ship (AIVDM) or also own ship (AIVDO) messages
@@ -30,11 +30,29 @@ Only AIVDM messages (other ships) are decoded by default. If you also want to de
 if (!NMEA0183Msg.IsMessageCode("VDM")) return;   // Not a AIVDM message, return
 ```
 
+To install the program on the ESP32 you do have two options.
+
+1. Install the binary file with esptool
+2. Compile and upload the program with the Arduino IDE
+
+## Esptool
+
+The Esptool from Espressif can be downloade [here](https://github.com/igrr/esptool-ck/releases) for differnt oprating systems.
+Download and install the apropriate version. The follow the instructions to upload the [binary file](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) to the ESP32 via the USB-serial connection of the ESP32. That's all.
+
+## Arduino IDE
+
+To install the software with the Arduino IDE you have to install the IDE and the ESP32 Board Support.
+Then you have to install three libraries.
+
 To use the gateway the following libraries have to be installed (as ZIP file):
 - [NMEA2000](https://github.com/ttlappalainen/NMEA2000)
 - [NMEA2000_esp32](https://github.com/ttlappalainen/NMEA2000_esp32)
 - [NMEA0183](https://github.com/ttlappalainen/NMEA0183)
 
+How to install and use the Arduino IDE is explained in the [NMEA2000 workshop](https://github.com/AK-Homberger/NMEA2000-Workshop).
+
+# Hardware
 The schematics and the PCB from the [WLAN gateway](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32) can be used for the gateway. Just ignore the not needed parts.
 
 ![schematics](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/KiCAD/ESP32WifiAisTempVolt2/ESP32WifiAisTempVolt2.png)
