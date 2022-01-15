@@ -41,7 +41,7 @@ For Windows there is also a [GUI version](https://www.espressif.com/en/support/d
 
 Download and install the apropriate version. Then follow the instructions to upload the file **MyAISToN2k.ino.esp32.bin** to the ESP32 via the USB-serial connection of the ESP32. That's all.
 
-For Windows GUI version start the program and select ESP32 and work mode "develop". Then select the downloaded [binary](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin)) file in the first row and set the following options:
+For Windows GUI version start the program and select ESP32 and work mode "develop". Then select the downloaded [binary](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) file in the first row and set the following options:
 
 ![Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/Esptool.png)
 
