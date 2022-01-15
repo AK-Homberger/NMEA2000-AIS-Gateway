@@ -43,7 +43,7 @@ Download and install the apropriate version. Then follow the instructions to upl
 
 Foe Windows GUI version start the program and select ESP32 and work mode "develop". Then select the downloaded binari fil in the ferst row and set the following options:
 
-[Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/Esptool.png)
+![Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/Esptool.png)
 
 ## Arduino IDE
 
