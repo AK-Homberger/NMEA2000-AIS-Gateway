@@ -29,16 +29,15 @@ Only AIVDM messages (other ships) are decoded by default. If you also want to de
 // if (!NMEA0183Msg.IsMessageCode("VDM") && !NMEA0183Msg.IsMessageCode("VDO")) return;   // Not a AIVDM/AIVDO message, return
 if (!NMEA0183Msg.IsMessageCode("VDM")) return;   // Not a AIVDM message, return
 ```
-
+# Software
 To install the program on the ESP32 you do have two options.
 
 1. Install the binary file with esptool
 2. Compile and upload the program with the Arduino IDE
 
 ## Esptool
-
-The Esptool from Espressif can be downloade [here](https://github.com/igrr/esptool-ck/releases) for differnt oprating systems.
-Download and install the apropriate version. The follow the instructions to upload the [binary file](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) to the ESP32 via the USB-serial connection of the ESP32. That's all.
+The Esptool from Espressif can be downloaded [here](https://github.com/igrr/esptool-ck/releases) for differnt operating systems.
+Download and install the apropriate version. Then follow the instructions to upload the file [MyAISToN2k.ino.esp32.bin](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) to the ESP32 via the USB-serial connection of the ESP32. That's all.
 
 ## Arduino IDE
 
