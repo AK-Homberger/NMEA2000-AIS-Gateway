@@ -45,7 +45,7 @@ For Windows GUI version start the program and select ESP32 and work mode "develo
 
 ![Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/Esptool.png)
 
-Then press "Start". On some ESP32 it might be nessessary to press the "BOOT" button to start uploading.
+Then press "START". On some ESP32 it might be nessessary to press the "BOOT" button to start uploading.
 
 ## Arduino IDE
 
