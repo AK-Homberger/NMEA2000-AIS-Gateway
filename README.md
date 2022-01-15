@@ -41,6 +41,10 @@ For Windows ther is als a [GUI version](https://www.espressif.com/en/support/dow
 
 Download and install the apropriate version. Then follow the instructions to upload the file [MyAISToN2k.ino.esp32.bin](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) to the ESP32 via the USB-serial connection of the ESP32. That's all.
 
+Foe Windows GUI version start the program and select ESP32 and work mode "develop". Then select the downloaded binari fil in the ferst row and set the following options:
+
+[Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/Esptool.png)
+
 ## Arduino IDE
 
 To install the software with the Arduino IDE you have to install the IDE and the ESP32 Board Support.
