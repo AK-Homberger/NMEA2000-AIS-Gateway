@@ -22,7 +22,7 @@ Currently, following AIS message types are supported: 1-3, 5, 14, 18, 19, 24A, 2
 
 Detailled information regarding AIS messages can be found [here](https://gpsd.gitlab.io/gpsd/AIVDM.html).
 
-Only AIVDM messages (other ships) are decoded by default. If you also want to decode and forward own ship messages (AIVDO) comment/uncomment the appropriate lines (requires Arduino IDE):
+Only AIVDM messages (other ships) are decoded by default. If you also want to decode and forward own ship messages (AIVDO) comment/uncomment the appropriate lines (code change requires Arduino IDE!):
 
 ```
 // Select (comment/uncomment) if you want to decode only other ship (AIVDM) or also own ship (AIVDO) messages
@@ -30,7 +30,7 @@ Only AIVDM messages (other ships) are decoded by default. If you also want to de
 if (!NMEA0183Msg.IsMessageCode("VDM")) return;   // Not a AIVDM message, return
 ```
 # Software Install
-To install the program on the ESP32 you do have two options.
+To install the program on the ESP32 you do have two options:
 
 1. Install the binary file with esptool
 2. Compile and upload the program with the Arduino IDE
@@ -39,9 +39,9 @@ To install the program on the ESP32 you do have two options.
 The Esptool from Espressif (command line version) can be downloaded [here](https://github.com/igrr/esptool-ck/releases) for differnt operating systems.
 For Windows there is also a [GUI version](https://www.espressif.com/en/support/download/other-tools) available.
 
-Download and install the apropriate version. Then follow the instructions to upload the file **MyAISToN2k.ino.esp32.bin** to the ESP32 via the USB-serial connection of the ESP32. That's all.
+Download and install the appropriate version. Then follow the instructions to upload the file **MyAISToN2k.ino.esp32.bin** to the ESP32 via the USB-serial connection of the ESP32. That's all.
 
-For Windows GUI version start the program and select ESP32 and work mode "develop". Then select the downloaded [binary](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) file in the first row and set the following options:
+For Windows GUI version start the program and select "ESP32" and work mode "develop". Then select the downloaded [binary](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) file in the first row and set the following options:
 
 ![Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/Esptool.png)
 
