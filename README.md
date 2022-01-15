@@ -29,7 +29,7 @@ Only AIVDM messages (other ships) are decoded by default. If you also want to de
 // if (!NMEA0183Msg.IsMessageCode("VDM") && !NMEA0183Msg.IsMessageCode("VDO")) return;   // Not a AIVDM/AIVDO message, return
 if (!NMEA0183Msg.IsMessageCode("VDM")) return;   // Not a AIVDM message, return
 ```
-# Software
+# Software install
 To install the program on the ESP32 you do have two options.
 
 1. Install the binary file with esptool
