@@ -22,7 +22,7 @@ Currently, following AIS message types are supported: 1-3, 5, 14, 18, 19, 24A, 2
 
 Detailled information regarding AIS messages can be found [here](https://gpsd.gitlab.io/gpsd/AIVDM.html).
 
-Only AIVDM messages (other ships) are decoded by default. If you also want to decode and forward own ship messages (AIVDO) comment/uncomment the appropriate lines (code change requires Arduino IDE!):
+Only AIVDM messages (other ships) are decoded by default. If you also want to decode and forward own ship messages (AIVDO) comment/uncomment the appropriate lines (code change requires Arduino IDE):
 
 ```
 // Select (comment/uncomment) if you want to decode only other ship (AIVDM) or also own ship (AIVDO) messages
