@@ -49,7 +49,7 @@ Then select the correct COM port and press "START". On some ESP32 it might be ne
 
 ## Arduino IDE
 
-To install the software with the Arduino IDE you have to install the IDE and the ESP32 Board Support.
+To install the software with the Arduino IDE you have to install the IDE and the ESP32 board support.
 Then you have to install three libraries.
 
 To use the gateway the following libraries have to be installed (as ZIP file):
