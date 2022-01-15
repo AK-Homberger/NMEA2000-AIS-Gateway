@@ -36,12 +36,14 @@ To install the program on the ESP32 you do have two options.
 2. Compile and upload the program with the Arduino IDE
 
 ## Esptool
-The Esptool from Espressif can be downloaded [here](https://github.com/igrr/esptool-ck/releases) for differnt operating systems.
-For Windows ther is als a [GUI version](https://www.espressif.com/en/support/download/other-tools) available.
+The Esptool from Espressif (command line version) can be downloaded [here](https://github.com/igrr/esptool-ck/releases) for differnt operating systems.
+For Windows there is also a [GUI version](https://www.espressif.com/en/support/download/other-tools) available.
 
 Download and install the apropriate version. Then follow the instructions to upload the file [MyAISToN2k.ino.esp32.bin](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) to the ESP32 via the USB-serial connection of the ESP32. That's all.
 
-Foe Windows GUI version start the program and select ESP32 and work mode "develop". Then select the downloaded binari fil in the ferst row and set the following options:
+For Windows GUI version start the program and select ESP32 and work mode "develop". Then select the downloaded binariy file in the first row and set the following options:
+
+Then press "Start". On some ESP32 it might be nessessary to press the "BOOT" button to start uploading.
 
 ![Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/Esptool.png)
 
