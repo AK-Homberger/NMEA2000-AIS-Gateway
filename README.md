@@ -43,9 +43,9 @@ Download and install the apropriate version. Then follow the instructions to upl
 
 For Windows GUI version start the program and select ESP32 and work mode "develop". Then select the downloaded binariy file in the first row and set the following options:
 
-Then press "Start". On some ESP32 it might be nessessary to press the "BOOT" button to start uploading.
-
 ![Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/Esptool.png)
+
+Then press "Start". On some ESP32 it might be nessessary to press the "BOOT" button to start uploading.
 
 ## Arduino IDE
 
