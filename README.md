@@ -37,11 +37,11 @@ To install the program on the ESP32 you do have two options:
 
 ## Esptool
 The Esptool from Espressif (command line version) can be downloaded [here](https://github.com/igrr/esptool-ck/releases) for different operating systems.
-For Windows there is also a [GUI version](https://www.espressif.com/en/support/download/other-tools) available.
+For Windows there is also a [NodeMCU PyFlasher tool](https://github.com/marcelstoer/nodemcu-pyflasher) available.
 
 Download and install the appropriate version. Then follow the instructions to upload the file **[MyAISToN2k.ino.esp32.bin](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin)** to the ESP32 via the USB-serial connection of the ESP32. That's all.
 
-For the Windows GUI version start the program and select "ESP32" and work mode "develop". Then select the downloaded [binary](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) file in the first row and set the following options:
+For the NodeMCU PyFlaher version start the program and select the downloaded [binary](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) and set the following options:
 
 ![Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/NodeMCUPyFlasher.png)
 
