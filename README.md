@@ -70,7 +70,7 @@ The board can be ordered at Aisler.net: https://aisler.net/p/DNXXRLFU
 
 **!!! Be careful with placing the the ESP32 on the PCB. The USB connector has to be on the right side !!!**
 
-# Remove the 120 ohm resistor from the transceiver
+## Remove the 120 ohm resistor from the transceiver
 For unknown reasons, many CAN bus transceivers for the ESP32 have a 120 Ohm resistor built into them. The resistor does not belong to the devices at the ends of the stub lines, but to the ends of the backbone cable.
 
 Whether the transceiver contains a 120 ohm resistor can be determined either by looking at the [circuit diagram](https://github.com/AK-Homberger/NMEA2000-Workshop/blob/main/Docs/SN65HVD230%20CAN%20Board_SCH.pdf) or by measuring with the multimeter.
@@ -95,7 +95,7 @@ You only need these parts for the gateway:
 - J1, J3 Connector 2-pin [Link](https://www.reichelt.de/de/en/2-pin-terminal-strip-spacing-5-08-akl-101-02-p36605.html?&nbc=1)
 
 
-## Updates:
+# Updates:
 - 13.01.22 Version 0.7: Select wether AIVDO messages (own ship) are to be decoded also in addition to AIVDM.
 - 13.01.22 Version 0.6: Corrected time PGNs for ETA calculation and changed AIS PGN handling for Raymarine MFDs.
 - 01.03.21 Version 0.5: Send message type 19 as PGN129040 (instead of 18 and 24a/24b PGNs).
