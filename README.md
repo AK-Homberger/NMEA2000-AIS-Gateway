@@ -49,7 +49,7 @@ Then press "Flash NodeMCU". On some ESP32 it might be nessessary to press the "B
 
 ## Arduino IDE
 
-To install the [software](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/tree/main/MyAISToN2k) with the Arduino IDE you have to install the IDE and the ESP32 board support.
+To install the [software](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/archive/refs/heads/main.zip) with the Arduino IDE you have to install the IDE and the ESP32 board support.
 Then you have to install three libraries.
 
 To use the gateway the following libraries have to be installed (as ZIP file):
