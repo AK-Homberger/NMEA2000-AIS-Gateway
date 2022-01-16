@@ -32,7 +32,7 @@ if (!NMEA0183Msg.IsMessageCode("VDM")) return;   // Not a AIVDM message, return
 # Software Install
 To install the program on the ESP32 you do have two options:
 
-1. Install the binary file with the **NodeMCU PyFlasher tool**
+1. Install the binary file with the **NodeMCU PyFlasher** tool
 2. Compile and upload the program with the **Arduino IDE**
 
 ## NodeMCU PyFlasher
