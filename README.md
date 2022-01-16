@@ -43,7 +43,7 @@ Download and install the appropriate version. Then follow the instructions to up
 
 For the Windows GUI version start the program and select "ESP32" and work mode "develop". Then select the downloaded [binary](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) file in the first row and set the following options:
 
-![Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/Esptool.png)
+![Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/NodeMCUPyFlasher.png)
 
 Then select the correct COM port and press "START". On some ESP32 it might be nessessary to press the "BOOT" button to start uploading.
 
