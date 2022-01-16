@@ -32,20 +32,20 @@ if (!NMEA0183Msg.IsMessageCode("VDM")) return;   // Not a AIVDM message, return
 # Software Install
 To install the program on the ESP32 you do have two options:
 
-1. Install the binary file with teh NodeMCU PyFlasher tool
-2. Compile and upload the program with the Arduino IDE
+1. Install the binary file with the **NodeMCU PyFlasher tool**
+2. Compile and upload the program with the **Arduino IDE**
 
 ## NodeMCU PyFlasher
 
 The easiest way to upload the binary file is to use the [NodeMCU PyFlasher tool](https://github.com/marcelstoer/nodemcu-pyflasher) tool.
 
-Download and install the appropriate version. Then download the file **[MyAISToN2k.ino.esp32.bin](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin)** to the PC.
+Download the appropriate version for your operating system. Then download the binary file **[MyAISToN2k.ino.esp32.bin](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin)** to the PC.
 
-For the NodeMCU PyFlaher version start the program and select the downloaded [binary](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) and set the following options:
+Then start the NodeMCU PyFlaher program and select the downloaded [binary](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin) and set the following options including the correct COM port:
 
 ![Esptool](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/NodeMCUPyFlasher.png)
 
-Then select the correct COM port and press "Flash NodeMCU". On some ESP32 it might be nessessary to press the "BOOT" button to start uploading.
+Then press "Flash NodeMCU". On some ESP32 it might be nessessary to press the "BOOT" button to start uploading.
 
 ## Arduino IDE
 
