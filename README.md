@@ -57,7 +57,7 @@ To use the gateway the following libraries have to be installed (as ZIP file):
 - [NMEA2000_esp32](https://github.com/ttlappalainen/NMEA2000_esp32)
 - [NMEA0183](https://github.com/ttlappalainen/NMEA0183)
 
-Just click on the green "Code" button and select "Download ZIP".
+Click on the name of each repository, then click on "Code" and select "Download ZIP". Then in the Arduino IDE: Sketch, mount library, select add .ZIP library and select the location of the downloaded libraries for each of the three libraries and install them one by one.
 
 Then download the [repository](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/archive/refs/heads/main.zip) as ZIP file and upack it.
 The Arduino code is in the "MyAISToN2k" folder.
