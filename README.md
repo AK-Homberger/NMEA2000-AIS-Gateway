@@ -37,7 +37,7 @@ To install the program on the ESP32 you do have two options:
 
 ## NodeMCU PyFlasher
 
-The easiest way to upload the binary file is to use the [NodeMCU PyFlasher tool](https://github.com/marcelstoer/nodemcu-pyflasher) tool.
+The easiest way to upload the binary file is to use the [NodeMCU PyFlasher](https://github.com/marcelstoer/nodemcu-pyflasher) tool.
 
 Download the appropriate version for your operating system. Then download the binary file **[MyAISToN2k.ino.esp32.bin](https://github.com/AK-Homberger/NMEA2000-AIS-Gateway/blob/main/MyAISToN2k.ino.esp32.bin)** to the PC.
 
