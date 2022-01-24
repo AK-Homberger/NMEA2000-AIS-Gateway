@@ -18,7 +18,15 @@ The solution is re-using AIS decoder code from [this](https://github.com/aduvenh
 
 It was necessary to change the code, to make it usable with the Arduino IDE and the ESP32. The reason for the changes was the different C compiler versions (clang#14 to clang#11). It was quite an effort to do the backport to Arduino clang#11 version, because of missing functions.
 
-Currently, following AIS message types are supported: 1-3, 5, 14, 18, 19, 24A, 24B
+Currently, following AIS message types are supported:
+
+- 1-3:  Class A position report. Translated to PGN129038.
+- 5:    Class A static data. Translated to PGN129794.
+- 14:   Safety related broadcast message. Translated to PGN129802.
+- 18:   Class B position report. Translated to PGN129039.
+- 19:   Class B extended position report. Translated to PGNPGN129040.
+- 24A:  Class B static data part A. Translated to PGN129809.
+- 24B:  Class B static data part B. Translated to PGN129810.
 
 Detailled information regarding AIS messages can be found [here](https://gpsd.gitlab.io/gpsd/AIVDM.html).
 
