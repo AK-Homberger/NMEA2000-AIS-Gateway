@@ -21,7 +21,7 @@ It was necessary to change the code, to make it usable with the Arduino IDE and 
 Currently, following AIS message types are supported:
 
 - 1-3:  Class A position report. Translated to PGN129038.
-- 5:    Class A Static and voyage related data. Translated to PGN129794.
+- 5:    Class A static and voyage related data. Translated to PGN129794.
 - 14:   Safety related broadcast message. Translated to PGN129802. This is needed for AIS SART devices!
 - 18:   Class B standard position report. Translated to PGN129039.
 - 19:   Class B extended position report. Translated to PGNPGN129040.
