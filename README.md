@@ -24,7 +24,7 @@ Currently, following AIS message types are supported:
 - 5:    Class A static and voyage related data -> PGN129794.
 - 14:   Safety related broadcast message -> PGN129802. This is needed for AIS SART devices!
 - 18:   Class B standard position report -> PGN129039.
-- 19:   Class B extended position report -> PGNPGN129040.
+- 19:   Class B extended position report -> PGN129040.
 - 24A:  Class B static data part A -> PGN129809.
 - 24B:  Class B static data part B -> PGN129810.
 
