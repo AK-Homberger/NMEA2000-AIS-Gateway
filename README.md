@@ -25,8 +25,8 @@ Currently, following AIS message types are supported:
 - 14:   Safety related broadcast message. Translated to PGN129802. This is needed for AIS SART devices!
 - 18:   Class B standard position report. Translated to PGN129039.
 - 19:   Class B extended position report. Translated to PGNPGN129040.
-- 24A:  Class B static data part A format. Translated to PGN129809.
-- 24B:  Class B static data part B format. Translated to PGN129810.
+- 24A:  Class B static data part A. Translated to PGN129809.
+- 24B:  Class B static data part B. Translated to PGN129810.
 
 Detailled information regarding AIS messages can be found [here](https://gpsd.gitlab.io/gpsd/AIVDM.html).
 
