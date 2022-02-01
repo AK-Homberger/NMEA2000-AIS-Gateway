@@ -19,7 +19,7 @@ The solution is re-using AIS decoder code from [this](https://github.com/aduvenh
 
 It was necessary to change the code, to make it usable with the Arduino IDE and the ESP32. The reason for the changes was the different C compiler versions (clang#14 to clang#11). It was quite an effort to do the backport to Arduino clang#11 version, because of missing functions.
 
-Currently, following AIS message types are supported:
+**Currently, following AIS message types are supported:**
 
 - 1-3:  Class A position report -> PGN 129038.
 - 5:    Class A static and voyage related data -> PGN 129794.
