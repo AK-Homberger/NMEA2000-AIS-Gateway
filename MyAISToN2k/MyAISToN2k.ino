@@ -55,7 +55,7 @@ void setup() {
   // Serial2.begin(38400, SERIAL_8N1);   // Configure Serial2 (GPIO 16)
   NMEA0183.Begin(&Serial2, 3, 38400); // Start NMEA0183 stream handling
 
-  esp_efuse_read_mac(chipid);
+  esp_efuse_mac_get_default(chipid);
   for (i = 0; i < 6; i++) id += (chipid[i] << (7 * i));
 
   // Setup NMEA2000 system
