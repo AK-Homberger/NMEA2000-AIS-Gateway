@@ -83,7 +83,7 @@ The board can be ordered at Aisler.net: https://aisler.net/p/DNXXRLFU
 
 **!!! Be careful with placing the the ESP32 on the PCB. The USB connector has to be on the right side !!!**
 
-## Remove the 120 ohm resistor from the transceiver
+## Remove the 120 Ohm resistor from the transceiver
 For unknown reasons, many CAN bus transceivers for the ESP32 have a 120 Ohm resistor built into them. The resistor does not belong to the devices at the ends of the stub lines, but to the ends of the backbone cable.
 
 Whether the transceiver contains a 120 ohm resistor can be determined either by looking at the [circuit diagram](https://github.com/AK-Homberger/NMEA2000-Workshop/blob/main/Docs/SN65HVD230%20CAN%20Board_SCH.pdf) or by measuring with the multimeter.
